@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Muhammad Usman Ashraf — Graphic Designer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0c0c0b;
+    --cream: #e8e0d0;
+    --gold: #c8a96e;
+    --muted: #5a5550;
+    --border: rgba(200, 169, 110, 0.18);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 1000;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  /* ── BACKGROUND GLOW ── */
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 20%, rgba(200,169,110,0.055) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(200,169,110,0.035) 0%, transparent 70%);
+  }
+
+  nav, section, footer { position: relative; z-index: 1; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(12, 12, 11, 0.85);
+    backdrop-filter: blur(12px);
+    opacity: 0; animation: fadeDown 0.6s 0.2s ease forwards;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 600; letter-spacing: 0.05em;
+    color: var(--cream); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 3rem 5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-line {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 80%);
+    margin-bottom: 3rem;
+    opacity: 0; transform: scaleX(0); transform-origin: left;
+    animation: lineIn 1s 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
+  }
+  .hero-tag {
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.7s ease forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 300; line-height: 0.92;
+    color: var(--cream); letter-spacing: -0.02em;
+    opacity: 0; animation: fadeUp 0.8s 0.9s ease forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--gold); }
+  .hero-desc {
+    max-width: 36ch; margin-top: 2.5rem;
+    font-size: 13px; line-height: 1.9; color: var(--muted);
+    opacity: 0; animation: fadeUp 0.7s 1.1s ease forwards;
+  }
+  .hero-scroll {
+    position: absolute; right: 3rem; bottom: 5rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    color: var(--muted); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0; animation: fadeIn 0.7s 1.5s ease forwards;
+  }
+  .hero-scroll::after {
+    content: ''; display: block;
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollLine 2s 2s ease-in-out infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 3rem; }
+  .section-header {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-num {
+    font-size: 10px; letter-spacing: 0.2em; color: var(--gold);
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 300; color: var(--cream);
+  }
+  .section-header hr {
+    flex: 1; border: none; border-top: 1px solid var(--border);
+  }
+
+  /* ── ABOUT ── */
+  #about { border-top: 1px solid var(--border); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 14px; line-height: 2; color: rgba(232,224,208,0.8);
+    margin-bottom: 1.5rem;
+  }
+  .about-text p strong { color: var(--gold); font-weight: 400; }
+  .skills-list {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--border);
+  }
+  .skill-item {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    font-size: 11px; letter-spacing: 0.08em;
+    color: var(--muted); transition: all 0.2s;
+  }
+  .skill-item:hover { color: var(--cream); background: rgba(200,169,110,0.04); }
+  .skill-item:nth-child(2n) { border-right: none; }
+
+  /* ── WORK ── */
+  #work { border-top: 1px solid var(--border); }
+  .projects-list { display: flex; flex-direction: column; }
+  .project-item {
+    display: grid; grid-template-columns: 5rem 1fr auto;
+    gap: 2rem; align-items: baseline;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+    cursor: default; transition: all 0.25s;
+    text-decoration: none; color: inherit;
+  }
+  .project-item:first-child { border-top: 1px solid var(--border); }
+  .project-item:hover { padding-left: 1rem; }
+  .project-item:hover .project-title { color: var(--gold); }
+  .project-num {
+    font-size: 10px; color: var(--muted); letter-spacing: 0.15em;
+    align-self: center;
+  }
+  .project-body { display: flex; flex-direction: column; gap: 0.4rem; }
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; color: var(--cream);
+    transition: color 0.25s;
+  }
+  .project-tags { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .tag {
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); padding: 0.2rem 0.6rem;
+    border: 1px solid var(--border);
+  }
+  .project-year {
+    font-size: 11px; color: var(--muted); letter-spacing: 0.1em;
+    align-self: center;
+  }
+
+  /* ── CONTACT ── */
+  #contact { border-top: 1px solid var(--border); }
+  .contact-inner {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 3rem; flex-wrap: wrap;
+  }
+  .contact-cta {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 300; line-height: 1.1;
+    max-width: 18ch;
+  }
+  .contact-cta em { font-style: italic; color: var(--gold); }
+  .contact-links { display: flex; flex-direction: column; gap: 1.25rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none; color: var(--muted); font-size: 12px;
+    letter-spacing: 0.08em; transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--cream); }
+  .contact-link::before {
+    content: '→'; color: var(--gold); font-size: 14px;
+    display: inline-block; transition: transform 0.2s;
+  }
+  .contact-link:hover::before { transform: translateX(4px); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10px; letter-spacing: 0.12em; color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes lineIn {
+    from { opacity: 0; transform: scaleX(0); }
+    to   { opacity: 1; transform: scaleX(1); }
+  }
+  @keyframes scrollLine {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* ── REVEAL ON SCROLL ── */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── CUSTOM CURSOR ── */
+  * { cursor: none !important; }
+
+  #cursor {
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    width: 36px; height: 36px; pointer-events: none;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    margin-left: -18px; margin-top: -18px;
+    transition: width 0.3s ease, height 0.3s ease,
+                margin 0.3s ease, border-color 0.3s ease,
+                opacity 0.3s ease;
+    mix-blend-mode: difference;
+  }
+  #cursor.grow {
+    width: 64px; height: 64px;
+    margin-left: -32px; margin-top: -32px;
+    border-color: var(--cream);
+    background: rgba(200, 169, 110, 0.06);
+  }
+  #cursor-dot {
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    width: 5px; height: 5px; pointer-events: none;
+    background: var(--gold);
+    border-radius: 50%;
+    margin-left: -2.5px; margin-top: -2.5px;
+    transition: opacity 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .project-item { grid-template-columns: 3rem 1fr; }
+    .project-year { display: none; }
+    .contact-inner { flex-direction: column; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">HE Designs | Graphic Designer</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-line"></div>
+  <p class="hero-tag">Graphic Designer · Available for Work · 2025</p>
+  <h1 class="hero-name">Muhammad<br /><em>Usman Ashraf</em></h1>
+  <p class="hero-desc">
+    A graphic designer with a sharp eye for visual storytelling — 
+    crafting identities, layouts, and experiences that leave a lasting impression.
+  </p>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About</h2>
+    <hr />
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm <strong>Muhammad Usman Ashraf</strong>, a graphic designer 
+        specialising in business logos and posters — clean, direct, and 
+        built to make an impression.
+      </p>
+      <p>
+        No clutter. No fluff. <strong>Just sharp design</strong> that tells 
+        your audience exactly who you are and what you offer, at a glance.
+      </p>
+      <p>
+        Whether you're launching a business, promoting an event, or refreshing 
+        your brand — I'll get it done right.
+      </p>
+    </div>
+    <div class="skills-list reveal">
+      <div class="skill-item">Logo Design</div>
+      <div class="skill-item">Business Posters</div>
+      <div class="skill-item">Adobe Illustrator</div>
+      <div class="skill-item">Adobe Photoshop</div>
+      <div class="skill-item">Typography</div>
+      <div class="skill-item">Brand Identity</div>
+      <div class="skill-item">Print Design</div>
+      <div class="skill-item">Canva / Figma</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Selected Work</h2>
+    <hr />
+  </div>
+  <div class="projects-list">
+    <a class="project-item reveal" href="https://dribbble.com/Usman_56" target="_blank">
+      <span class="project-num">01</span>
+      <div class="project-body">
+        <span class="project-title">Logo Design</span>
+        <div class="project-tags">
+          <span class="tag">Logo</span>
+          <span class="tag">Clean & Minimal</span>
+          <span class="tag">Illustrator</span>
+        </div>
+      </div>
+      <span class="project-year">2024</span>
+    </a>
+    <a class="project-item reveal" href="https://dribbble.com/Usman_56" target="_blank">
+      <span class="project-num">02</span>
+      <div class="project-body">
+        <span class="project-title">Event & Concert Posters</span>
+        <div class="project-tags">
+          <span class="tag">Poster</span>
+          <span class="tag">Event</span>
+          <span class="tag">Photoshop</span>
+        </div>
+      </div>
+      <span class="project-year">2024</span>
+    </a>
+    <a class="project-item reveal" href="https://dribbble.com/Usman_56" target="_blank">
+      <span class="project-num">03</span>
+      <div class="project-body">
+        <span class="project-title">Social Media Creatives</span>
+        <div class="project-tags">
+          <span class="tag">Social Media</span>
+          <span class="tag">Digital</span>
+          <span class="tag">Brand</span>
+        </div>
+      </div>
+      <span class="project-year">2024</span>
+    </a>
+    <a class="project-item reveal" href="https://www.instagram.com/hedesigns2005/" target="_blank">
+      <span class="project-num">04</span>
+      <div class="project-body">
+        <span class="project-title">Typography &amp; Art Posters</span>
+        <div class="project-tags">
+          <span class="tag">Typography</span>
+          <span class="tag">Art</span>
+          <span class="tag">Print</span>
+        </div>
+      </div>
+      <span class="project-year">2023</span>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Let's Connect</h2>
+    <hr />
+  </div>
+  <div class="contact-inner">
+    <p class="contact-cta reveal">
+      Let's create something <em>unforgettable</em> together.
+    </p>
+    <div class="contact-links reveal">
+      <a class="contact-link" href="mailto:usmanashrafmalik56@gmail.com">usmanashrafmalik56@gmail.com</a>
+      <a class="contact-link" href="tel:+923488638584">+92 348 863 8584</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/muhammad-usman-619551224/" target="_blank">LinkedIn</a>
+      <a class="contact-link" href="https://dribbble.com/Usman_56" target="_blank">Dribbble</a>
+      <a class="contact-link" href="https://www.instagram.com/hedesigns2005/" target="_blank">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Muhammad Usman Ashraf</span>
+  <span>Designed by Muhammad Usman Ashraf</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.dataset.delay = (i % 4) * 80;
+    observer.observe(el);
+  });
+
+  // ── CUSTOM CURSOR ──
+  const cursor     = document.createElement('div');
+  const cursorDot  = document.createElement('div');
+  cursor.id    = 'cursor';
+  cursorDot.id = 'cursor-dot';
+  document.body.append(cursor, cursorDot);
+
+  let mouseX = 0, mouseY = 0;
+  let curX   = 0, curY   = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+  });
+
+  // Smooth lag on the outer ring
+  (function animate() {
+    curX += (mouseX - curX) * 0.12;
+    curY += (mouseY - curY) * 0.12;
+    cursor.style.transform = `translate(${curX}px, ${curY}px)`;
+    requestAnimationFrame(animate);
+  })();
+
+  // Grow on hoverable elements
+  const hoverEls = document.querySelectorAll('a, button, .project-item, .skill-item');
+  hoverEls.forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+  });
+
+  // Hide when leaving window
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity    = '0';
+    cursorDot.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity    = '1';
+    cursorDot.style.opacity = '1';
+  });
+</script>
+
+</body>
+</html>
